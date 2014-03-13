@@ -5,6 +5,6 @@ class Parser
   end
 
   def self.sanitize(string)
-    string.split(',').map {|i| i.strip}
+    string.split(/[,|\ ]/).map {|i| i.strip}.reject(&:empty?)
   end
 end
