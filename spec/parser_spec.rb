@@ -2,25 +2,25 @@ require 'parser'
 
 describe Parser do
   let(:keys) { %i[last_name first_name gender favorite_color birthdate] }
-  let(:parsed_values) { {last_name: 'Kung', first_name: 'Brian', gender: 'Male', favorite_color: 'Green', birthdate: '12/28/1987'} }
+  let(:parsed_values) { {last_name: 'Kung', first_name: 'Brian', gender: 'Male', favorite_color: 'Green', birthdate: '1987-12-28'} }
 
   describe '#parse' do
     subject { Parser.parse(input) }
 
     context 'Comma Separated Values (CSV)' do
-      let(:input) { "Kung, Brian, Male, Green, 12/28/1987" }
+      let(:input) { "Kung, Brian, Male, Green, 1987-12-28" }
 
       it { should eq(parsed_values) }
     end
 
     context 'Pipe Separated Values (PSV)' do
-      let(:input) { "Kung | Brian | Male | Green | 12/28/1987" }
+      let(:input) { "Kung | Brian | Male | Green | 1987-12-28" }
 
       it { should eq(parsed_values) }
     end
 
     context 'Space Separated Values (SSV)' do
-      let(:input) { "Kung Brian Male Green 12/28/1987" }
+      let(:input) { "Kung Brian Male Green 1987-12-28" }
 
       it { should eq(parsed_values) }
     end

@@ -1,10 +1,11 @@
 class Parser
-  def self.parse(delimited_string = '')
+  def self.parse(delimited_string)
+    keys = %i[last_name first_name gender favorite_color birthdate]
     sanitized = self.sanitize(delimited_string) 
-    {last_name: sanitized[0], first_name: sanitized[1], gender: sanitized[2], favorite_color: sanitized[3], birthdate: sanitized[4]}
+    Hash[keys.zip(sanitized)]
   end
 
   def self.sanitize(string)
-    string.split(/[,|\ ]/).map {|i| i.strip}.reject(&:empty?)
+    string.split(/[,|\ ]/).map(&:strip).reject(&:empty?)
   end
 end
