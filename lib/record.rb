@@ -1,4 +1,6 @@
-class Parser
+# This class 
+
+class Record
   def self.parse(delimited_string)
     keys = %i[last_name first_name gender favorite_color birthdate]
     sanitized = self.sanitize(delimited_string) 
