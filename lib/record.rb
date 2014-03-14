@@ -1,6 +1,12 @@
-# This class 
+require 'ostruct'
 
-class Record
+class Record < OpenStruct
+  def initialize(delimited_string)
+    super(Record.parse(delimited_string))
+  end
+
+  private
+
   def self.parse(delimited_string)
     keys = %i[last_name first_name gender favorite_color birthdate]
     sanitized = self.sanitize(delimited_string) 
