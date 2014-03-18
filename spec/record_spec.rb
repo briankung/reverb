@@ -51,7 +51,7 @@ describe Record do
 
   describe '#display' do
     it 'is correctly formatted' do
-      expect(record.display).to eq "Last Name: Kung, First Name: Brian, Gender: Male, Date of Birth: 12/28/1987"
+      expect(record.display).to eq "Last Name: Kung, First Name: Brian, Gender: Male, Date of Birth: 12/28/1987, Favorite Color: Green"
     end
   end
 

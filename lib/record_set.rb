@@ -4,4 +4,8 @@ class RecordSet < Array
       self << Record.new(l)
     end
   end
+
+  def list
+    self.map(&:display)
+  end
 end

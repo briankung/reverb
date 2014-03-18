@@ -8,7 +8,7 @@ class Record < Hash
   end
 
   def display
-    "Last Name: #{self[:last_name]}, First Name: #{self[:first_name]}, Gender: #{self[:gender]}, Date of Birth: #{birthdate}"
+    "Last Name: #{self[:last_name]}, First Name: #{self[:first_name]}, Gender: #{self[:gender]}, Date of Birth: #{birthdate}, Favorite Color: #{self[:favorite_color]}"
   end
 
   private
