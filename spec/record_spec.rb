@@ -1,75 +1,63 @@
 require 'record'
 
 describe Record do
-  let(:keys) { %i[last_name first_name gender favorite_color birthdate] }
-  let(:parsed_values) { {last_name: 'Kung', first_name: 'Brian', gender: 'Male', favorite_color: 'Green', birthdate: '1987-12-28'} }
-  let(:csv) { "Kung, Brian, Male, Green, 1987-12-28" }
+  let(:parsed_data) { {last_name: 'Kung', first_name: 'Brian', gender: 'Male', favorite_color: 'Green', birthdate: '1987-12-28'} }
+  let(:record) { Record.new(input) }
+  let(:input) { "Kung%sBrian%sMale%sGreen%s1987-12-28" % ([separator]*4) }
+  let(:separator) { ', ' }
 
-  describe '#new' do
-    let(:record) { Record.new(csv) }
-
-    it 'is a Hash' do 
-      expect(record).to be_a Hash
-    end
-
-    it 'can read data' do
-      expect(record[:last_name]).to eq "Kung"
-      expect(record[:first_name]).to eq "Brian"
-      expect(record[:gender]).to eq "Male"
-      expect(record[:favorite_color]).to eq "Green"
-      expect(record[:birthdate]).to eq "1987-12-28"
-    end
+  it 'is equivalent to the parsed values' do
+    expect(record).to eq parsed_data
   end
 
   describe '#parse' do
     subject { Record.parse(input) }
 
     context 'Comma Separated Values (CSV)' do
-      let(:input) { csv }
-
-      it { should eq(parsed_values) }
+      let(:separator) { ', ' }
+      it { should eq(parsed_data) }
     end
 
     context 'Pipe Separated Values (PSV)' do
-      let(:input) { "Kung | Brian | Male | Green | 1987-12-28" }
-
-      it { should eq(parsed_values) }
+      let(:separator) { " | " }
+      it { should eq(parsed_data) }
     end
 
     context 'Space Separated Values (SSV)' do
-      let(:input) { "Kung Brian Male Green 1987-12-28" }
-
-      it { should eq(parsed_values) }
+      let(:separator) { " " }
+      it { should eq(parsed_data) }
     end
   end
 
   describe '#sanitize' do
-    subject { Record.sanitize(string) }
-
-    let(:sanitized) { %w{LastName FirstName Gender FavoriteColor DateOfBirth} }
+    subject { Record.sanitize(input) }
+    let(:sanitized) { parsed_data.values }
 
     context 'CSV' do
-      let(:string) { 'LastName, FirstName, Gender, FavoriteColor, DateOfBirth' }
-
+      let(:separator) { ', ' }
       it { should eq(sanitized) }
-
-      context 'with newline' do
-        let(:string) { "LastName, FirstName, Gender, FavoriteColor, DateOfBirth\n" }
-
-        it { should eq(sanitized) }
-      end
     end
 
     context 'PSV' do
-      let(:string) { 'LastName | FirstName | Gender | FavoriteColor | DateOfBirth' }
-
+      let(:separator) { ' | ' }
       it { should eq(sanitized) }
     end
 
     context 'SSV' do
-      let(:string) { 'LastName FirstName Gender FavoriteColor DateOfBirth' }
-
+      let(:separator) { ' ' }
       it { should eq(sanitized) }
+    end
+  end
+
+  describe '#display' do
+    it 'is correctly formatted' do
+      expect(record.display).to eq "Last Name: Kung, First Name: Brian, Gender: Male, Date of Birth: 12/28/1987"
+    end
+  end
+
+  describe '#birthdate' do
+    it 'is correctly formatted' do
+      expect(record.send(:birthdate)).to eq '12/28/1987'
     end
   end
 end
