@@ -8,16 +8,16 @@ describe Record do
   describe '#new' do
     let(:record) { Record.new(csv) }
 
-    it 'is an OpenStruct' do 
-      expect(record).to be_an OpenStruct 
+    it 'is a Hash' do 
+      expect(record).to be_a Hash
     end
 
     it 'can read data' do
-      expect(record.last_name).to eq "Kung"
-      expect(record.first_name).to eq "Brian"
-      expect(record.gender).to eq "Male"
-      expect(record.favorite_color).to eq "Green"
-      expect(record.birthdate).to eq "1987-12-28"
+      expect(record[:last_name]).to eq "Kung"
+      expect(record[:first_name]).to eq "Brian"
+      expect(record[:gender]).to eq "Male"
+      expect(record[:favorite_color]).to eq "Green"
+      expect(record[:birthdate]).to eq "1987-12-28"
     end
   end
 
@@ -52,6 +52,12 @@ describe Record do
       let(:string) { 'LastName, FirstName, Gender, FavoriteColor, DateOfBirth' }
 
       it { should eq(sanitized) }
+
+      context 'with newline' do
+        let(:string) { "LastName, FirstName, Gender, FavoriteColor, DateOfBirth\n" }
+
+        it { should eq(sanitized) }
+      end
     end
 
     context 'PSV' do

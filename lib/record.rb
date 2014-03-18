@@ -1,8 +1,6 @@
-require 'ostruct'
-
-class Record < OpenStruct
+class Record < Hash
   def initialize(delimited_string)
-    super(Record.parse(delimited_string))
+    self.merge!(Record.parse(delimited_string))
   end
 
   private
