@@ -12,19 +12,14 @@ module RecordAccessor
     end
 
     resource :records do
-      desc 'Returns records sorted by gender (and then last name).'
-      get :gender do
-        records.list(order: :gender)
-      end
-
       desc 'Returns records sorted by last name'
       get :name do
         records.list(order: :last_name)
       end
 
-      desc 'Returns records sorted by birthdate'
-      get :birthdate do
-        records.list(order: :birthdate)
+      desc "Returns records sorted by parameter"
+      get ':order' do
+        records.list(order: params[:order].to_sym)
       end
     end
   end
