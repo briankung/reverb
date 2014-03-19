@@ -16,6 +16,34 @@ describe RecordSet do
 
   context 'with csv data' do
     let(:extension) { '.csv' }
+    let(:by_birthdate) do
+      [
+        "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
+        "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
+        "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
+        "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
+        "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
+      ]
+    end
+    let(:by_last_name) do
+      [
+        "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
+        "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
+        "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
+        "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
+        "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
+      ]
+    end
+    let(:by_gender) do
+      [
+        "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
+        "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
+        "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
+        "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
+        "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
+      ]
+    end
+
     it 'has as many elements as there are records' do
       expect(record_set.length).to be 5
     end
@@ -25,51 +53,25 @@ describe RecordSet do
       expect(only_records).to be_true
     end
 
-    describe '#list_by_birthdate' do
-      let(:output) do
-        [
-          "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
-          "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
-          "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
-          "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
-          "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
-        ]
-      end
-
-      it 'displays records in  birth order' do
-        expect(record_set.list_by_birthdate).to eq output
-      end
+    it 'displays records by gender (then last name)' do
+      expect(record_set.list_by_gender).to eq by_gender
     end
 
-    describe '#list_by_last_name' do
-      let(:output) do
-        [
-          "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
-          "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
-          "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
-          "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
-          "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
-        ]
+    describe '#list' do
+      it 'defaults to displaying records in birth order' do
+        expect(record_set.list).to eq by_birthdate
       end
 
-      it 'displays records in  last name order' do
-        expect(record_set.list_by_last_name).to eq output
-      end
-    end
-
-    describe '#list_by_gender' do
-      let(:output) do
-        [
-          "Last Name: Curie, First Name: Marie, Gender: Female, Date of Birth: 11/07/1867, Favorite Color: Yellow",
-          "Last Name: Lovelace, First Name: Ada, Gender: Female, Date of Birth: 12/10/1815, Favorite Color: Purple",
-          "Last Name: Darwin, First Name: Charles, Gender: Male, Date of Birth: 02/12/1809, Favorite Color: Blue",
-          "Last Name: Einstein, First Name: Albert, Gender: Male, Date of Birth: 03/14/1879, Favorite Color: Green",
-          "Last Name: Turing, First Name: Alan, Gender: Male, Date of Birth: 06/03/1912, Favorite Color: Green"
-        ]
+      it 'can explicitly ordered by birth' do
+        expect(record_set.list(by: :birthdate)).to eq by_birthdate
       end
 
-      it 'can be ordered by gender (then last name)' do
-        expect(record_set.list_by_gender).to eq output
+      it 'can ordered by last name' do
+        expect(record_set.list(by: :last_name)).to eq by_last_name
+      end
+
+      it 'can ordered by gender (then last name)' do
+        expect(record_set.list(by: :gender)).to eq by_gender
       end
     end
   end

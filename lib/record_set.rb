@@ -5,16 +5,12 @@ class RecordSet < Array
     end
   end
 
-  def list_by_birthdate
-    self.sort_by {|r| r[:birthdate]}.map(&:display)
-  end
-
   def list_by_gender
     (women + men).map(&:display)
   end
 
-  def list_by_last_name
-    self.sort_by {|r| r[:last_name]}.map(&:display)
+  def list(by: :birthdate)
+    by == :gender ? list_by_gender : self.sort_by {|r| r[by]}.map(&:display)
   end
 
   private
