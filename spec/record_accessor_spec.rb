@@ -14,7 +14,7 @@ describe RecordAccessor::API do
       it 'returns records sorted by gender' do
         get '/records/gender'
         expect(last_response.status).to eq 200
-        expect(JSON.parse(last_response.body)).to eq records.list(by: :gender)
+        expect(last_response.body).to eq records.list(order: :gender).to_json
       end
     end
 
@@ -22,7 +22,7 @@ describe RecordAccessor::API do
       it 'returns records sorted by last name' do
         get '/records/name'
         expect(last_response.status).to eq 200
-        expect(JSON.parse(last_response.body)).to eq records.list(by: :last_name)
+        expect(last_response.body).to eq records.list(order: :last_name).to_json
       end
     end
 
@@ -30,7 +30,7 @@ describe RecordAccessor::API do
       it 'returns records sorted by birthdate' do
         get '/records/birthdate'
         expect(last_response.status).to eq 200
-        expect(JSON.parse(last_response.body)).to eq records.list(by: :birthdate)
+        expect(last_response.body).to eq records.list(order: :birthdate).to_json
       end
     end
   end

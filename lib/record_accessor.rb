@@ -14,17 +14,17 @@ module RecordAccessor
     resource :records do
       desc 'Returns records sorted by gender (and then last name).'
       get :gender do
-        records.list(by: :gender)
+        records.list(order: :gender)
       end
 
       desc 'Returns records sorted by last name'
       get :name do
-        records.list(by: :last_name)
+        records.list(order: :last_name)
       end
 
       desc 'Returns records sorted by birthdate'
       get :birthdate do
-        records.list(by: :birthdate)
+        records.list(order: :birthdate)
       end
     end
   end

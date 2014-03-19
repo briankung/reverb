@@ -14,16 +14,16 @@ gets
 
   puts "#{format.upcase} sample file loaded\n\n"
   puts "In default (birth) order:\n"
-  puts records.list
+  puts records.display
   puts
   puts "In explicit birth order:\n"
-  puts records.list(by: :birthdate)
+  puts records.display(order: :birthdate)
   puts
   puts "In ascending last name order:\n"
-  puts records.list(by: :last_name)
+  puts records.display(order: :last_name)
   puts
   puts "In order of gender, then last name:\n"
-  puts records.list(by: :gender)
+  puts records.display(order: :gender)
   puts
   puts "Press any key to continue."
   gets

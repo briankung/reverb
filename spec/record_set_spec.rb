@@ -52,21 +52,21 @@ describe RecordSet do
       expect(only_records).to be_true
     end
 
-    describe '#list' do
+    describe '#display' do
       it 'defaults to displaying records in birth order' do
-        expect(record_set.list).to eq by_birthdate
+        expect(record_set.display).to eq by_birthdate
       end
 
       it 'can be explicitly ordered by birth' do
-        expect(record_set.list(by: :birthdate)).to eq by_birthdate
+        expect(record_set.display(order: :birthdate)).to eq by_birthdate
       end
 
       it 'can be ordered by last name' do
-        expect(record_set.list(by: :last_name)).to eq by_last_name
+        expect(record_set.display(order: :last_name)).to eq by_last_name
       end
 
       it 'can be ordered by gender (then last name)' do
-        expect(record_set.list(by: :gender)).to eq by_gender
+        expect(record_set.display(order: :gender)).to eq by_gender
       end
     end
   end

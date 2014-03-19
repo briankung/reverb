@@ -7,9 +7,12 @@ class RecordSet < Array
     end
   end
 
-  def list(by: :birthdate)
-    if by == :gender then list_by_gender else self.sort_by {|r| r[by]} end
-      .map(&:display)
+  def list(order: :birthdate)
+    if order == :gender then list_by_gender else self.sort_by {|r| r[order]} end
+  end
+
+  def display(order: :birthdate)
+    list(order: order).map(&:display)
   end
 
   private
