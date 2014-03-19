@@ -1,4 +1,4 @@
-require 'record'
+require 'spec_helper'
 
 describe Record do
   let(:parsed_data) { {last_name: 'Kung', first_name: 'Brian', gender: 'Male', favorite_color: 'Green', birthdate: '1987-12-28'} }
