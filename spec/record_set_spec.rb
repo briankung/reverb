@@ -14,7 +14,7 @@ describe RecordSet do
     expect(record_set.length).to be 0
   end
 
-  context 'with csv data' do
+  context 'with test.csv data' do
     let(:extension) { '.csv' }
     let(:by_birthdate) do
       [
@@ -53,24 +53,20 @@ describe RecordSet do
       expect(only_records).to be_true
     end
 
-    it 'displays records by gender (then last name)' do
-      expect(record_set.list_by_gender).to eq by_gender
-    end
-
     describe '#list' do
       it 'defaults to displaying records in birth order' do
         expect(record_set.list).to eq by_birthdate
       end
 
-      it 'can explicitly ordered by birth' do
+      it 'can be explicitly ordered by birth' do
         expect(record_set.list(by: :birthdate)).to eq by_birthdate
       end
 
-      it 'can ordered by last name' do
+      it 'can be ordered by last name' do
         expect(record_set.list(by: :last_name)).to eq by_last_name
       end
 
-      it 'can ordered by gender (then last name)' do
+      it 'can be ordered by gender (then last name)' do
         expect(record_set.list(by: :gender)).to eq by_gender
       end
     end
