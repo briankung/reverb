@@ -1,5 +1,4 @@
 require 'record_set'
-require 'record'
 
 describe RecordSet do
   let(:path) { Dir.pwd + '/spec/samples/test' + extension }

@@ -1,3 +1,5 @@
+require_relative 'record'
+
 class RecordSet < Array
   def initialize(file)
     File.open(file).each_line do |l|
