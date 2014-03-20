@@ -12,6 +12,18 @@ module RecordAccessor
     end
 
     resource :records do
+      desc 'Adds a record'
+      post do
+        records << Record.new(params['record']['new'])
+        records.save!
+        records
+      end
+
+      desc 'Returns records order of retrieval from file'
+      get do
+        records.list(order: nil)
+      end
+
       desc 'Returns records sorted by last name'
       get :name do
         records.list(order: :last_name)
