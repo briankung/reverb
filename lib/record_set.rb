@@ -1,10 +1,12 @@
 require_relative 'record'
 
 class RecordSet < Array
-  def initialize(file)
-    File.open(file).each_line do |l|
+  def initialize(input_file)
+    @file ||= File.open(input_file)
+    @file.each_line do |l|
       self << Record.new(l)
     end
+    @file.close
   end
 
   def list(order: :birthdate)
@@ -13,6 +15,12 @@ class RecordSet < Array
 
   def display(order: :birthdate)
     list(order: order).map(&:display)
+  end
+
+  def save!
+    File.open(@file, 'w') do |f| 
+      self.each {|record| f.puts "%s, %s, %s, %s, %s" % record.values }
+    end
   end
 
   private

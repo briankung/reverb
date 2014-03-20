@@ -70,4 +70,23 @@ describe RecordSet do
       end
     end
   end
+
+  describe '#save!' do
+    after(:each) { File.open(path, 'w'){} }
+
+    let(:bobby) { Record.new('DropTables Bobby Male Blue 2000-12-12') }
+    let(:updated_records) { record_set << bobby }
+    it 'writes to the file' do
+      expect(updated_records.save!).to be_true
+      expect(RecordSet.new(path)).to include(bobby)
+    end
+
+    it 'nurrrr' do
+      expect(record_set.length).to be 0
+      record_set << 1
+      expect(record_set.length).to be 1
+      record_set = RecordSet.new(path)
+      expect(record_set.length).to be 0
+    end
+  end
 end
