@@ -16,6 +16,7 @@ To see a demo parse the provided test cases in `spec/fixtures/`:
 1. Open a terminal window and `cd` to the `reverb` repository/folder
 2. Install dependencies with `bundle install`
 3. Start the server by typing `rackup`
+4. `POST` some data to the `/records` endpoint. You can separate values with commas, spaces, or pipes. Try 'Poppins, Mary, Female, Mauve, 1934-06-23'.
 
 Then try any of these endpoints in your browser of choice:
 
