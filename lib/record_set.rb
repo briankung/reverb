@@ -2,11 +2,10 @@ require_relative 'record'
 
 class RecordSet < Array
   def initialize(input_file)
-    @file ||= File.open(input_file)
-    @file.each_line do |l|
-      self << Record.new(l)
+    @file ||= input_file
+    File.open(input_file) do |f|
+      f.each_line {|l| self << Record.new(l)}
     end
-    @file.close
   end
 
   def list(order: :birthdate)
