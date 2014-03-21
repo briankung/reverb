@@ -7,7 +7,7 @@ module RecordAccessor
 
     helpers do
       def records
-        @records ||= RecordSet.new(Dir.pwd + '/spec/samples/test.csv')
+        @records ||= RecordSet.new(Dir.pwd + '/db/records.list')
       end
     end
 

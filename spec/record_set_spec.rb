@@ -72,7 +72,7 @@ describe RecordSet do
   end
 
   describe '#save!' do
-    after(:each) { File.open(path, 'w'){} }
+    after { File.open(path, 'w'){} }
 
     let(:bobby) { Record.new('DropTables Bobby Male Blue 2000-12-12') }
     let(:updated_records) { record_set << bobby }
