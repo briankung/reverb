@@ -16,7 +16,12 @@ To see a demo parse the provided test cases in `spec/fixtures/`:
 1. Open a terminal window and `cd` to the `reverb` repository/folder
 2. Install dependencies with `bundle install`
 3. Start the server by typing `rackup`
-4. `POST` some data to the `/records` endpoint. You can separate values with commas, spaces, or pipes. Try 'Poppins, Mary, Female, Mauve, 1934-06-23'.
+4. The records list will be empty at first, so `POST` some data to [http://localhost:9292/records](http://localhost:9292/records):
+    - The parameter key is 'record[new]'.
+    - You can separate values with commas, spaces, or pipes. Try 'Poppins, Mary, Female, Mauve, 1934-06-23'.
+    - An example of my [Postman REST Client][postman] POST request:
+
+![My Postman REST Client POST request](http://i.imgur.com/QcTUeub.png)
 
 Then try any of these endpoints in your browser of choice:
 
@@ -36,7 +41,7 @@ To run the specs:
 
 ## Classes
 
-The application is composed of three classes: `Record`, `RecordSet`, and `RecordAccessor`
+The application is composed of three classes: `Record`, `RecordSet`, and `RecordAccessor::API`
 
 ### Record
 
@@ -72,10 +77,11 @@ record.display #=> "Last Name: Einstein, First Name: Albert, Gender: Male, Date 
 
 ### RecordSet
 
-The RecordSet class inherits from Array and represents a list of Records. It is responsible for managing records, including sorting, displaying, and adding records. It must be initialized with a path to a properly formatted input file.
+The RecordSet class inherits from Array and represents a list of Records. It is responsible for managing records, including sorting, displaying, and adding records. It is initialized with a file path. If the file exists, its contents will be parsed. If it does not, a new, empty file will be created, including any nested directories in the path leading to that file
 
 ```ruby
-# Note: the extension does not matter as long as the data is properly formatted.
+records = RecordSet.new('/some/new/path/to/new_records.list')
+# Or:
 records = RecordSet.new('/some/path/to/input.csv')
 
 # The :order keyword can accept any of the Record class's KEYS:
@@ -100,7 +106,7 @@ Then they may be saved with `#save!`
 records.save! #=> Writes the current contents of record to the origin file in CSV format
 ```
 
-### RecordAccessor
+### RecordAccessor::API
 
 Finally, RecordAccessor::API is the Rack middleware that exposes the functionality of Record and RecordSet to HTTP endpoints. These API endpoints return structured data in JSON format:
 
@@ -115,3 +121,5 @@ Any string following `/records/` in the URL is passed to `RecordSet#list` as the
 - `GET /records/first_name`
 - `GET /records/last_name`
 - `GET /records/favorite_color`
+
+[postman]: https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
