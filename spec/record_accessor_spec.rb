@@ -9,7 +9,7 @@ describe RecordAccessor::API do
   end
 
   describe RecordAccessor::API do
-    let(:path) { Dir.pwd + '/spec/samples/test' + extension }
+    let(:path) { Dir.pwd + '/spec/fixtures/test' + extension }
     let(:extension) { '' }
     let(:records) { RecordSet.new(path) }
 
@@ -20,7 +20,7 @@ describe RecordAccessor::API do
 
       it 'adds a record to the file' do
         RecordAccessor::API.helpers do
-          def records; @records ||= RecordSet.new(Dir.pwd + '/spec/samples/test'); end
+          def records; @records ||= RecordSet.new(Dir.pwd + '/spec/fixtures/test'); end
         end
 
         get '/records/'
@@ -40,7 +40,7 @@ describe RecordAccessor::API do
     context 'GET' do
       before(:all) do
         RecordAccessor::API.helpers do
-          def records; @records ||= RecordSet.new(Dir.pwd + '/spec/samples/test.csv'); end
+          def records; @records ||= RecordSet.new(Dir.pwd + '/spec/fixtures/test.csv'); end
         end
       end
 

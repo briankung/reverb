@@ -10,7 +10,7 @@ puts "Press any key to continue."
 gets
 
 %w[csv psv ssv].each do |format|
-  records = RecordSet.new(root + "/spec/samples/test.#{format}")
+  records = RecordSet.new(root + "/spec/fixtures/test.#{format}")
 
   puts "#{format.upcase} sample file loaded\n\n"
   puts "In default (birth) order:\n"

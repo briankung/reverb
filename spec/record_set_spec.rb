@@ -1,7 +1,7 @@
 require 'record_set'
 
 describe RecordSet do
-  let(:path) { Dir.pwd + '/spec/samples/test' + extension }
+  let(:path) { Dir.pwd + '/spec/fixtures/test' + extension }
   let(:extension) { '' }
   let(:record_set) { RecordSet.new(path) }
 

@@ -6,7 +6,7 @@ The Record Accessor is a system that parses and sorts a set of records from a fi
 
 ### RecordSet Demo
 
-To see a demo parse the provided test cases in `spec/samples/`:
+To see a demo parse the provided test cases in `spec/fixtures/`:
 
 1. Open a terminal window and `cd` to the `reverb` repository/folder
 2. Run the `demo.rb` script by executing `ruby demo.rb`
