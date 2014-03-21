@@ -81,4 +81,14 @@ describe RecordSet do
       expect(RecordSet.new(path)).to include(bobby)
     end
   end
+
+  context 'without existing records file' do
+    let(:path) { Dir.pwd + '/db/does_not_exist.list' }
+    before { RecordSet.new(path) }
+    after { File.delete(path) if File.exists?(path) }
+    
+    it 'creates a new file' do
+      expect(File.exist?(path)).to be_true
+    end
+  end
 end

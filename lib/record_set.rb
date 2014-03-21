@@ -3,9 +3,7 @@ require_relative 'record'
 class RecordSet < Array
   def initialize(input_file)
     @file ||= input_file
-    File.open(input_file) do |f|
-      f.each_line {|l| self << Record.new(l)}
-    end
+    if File.exists?(@file) then read_file else new_file end
   end
 
   def list(order: :birthdate)
@@ -23,6 +21,17 @@ class RecordSet < Array
   end
 
   private
+  def read_file
+    File.open(@file) do |f|
+      f.each_line {|l| self << Record.new(l)}
+    end
+  end
+
+  def new_file
+    dir, _ = File.split(@file)
+    FileUtils::mkdir_p(dir) unless Dir.exists?(dir)
+    File.new(@file, 'w')
+  end
 
   def list_by_gender
     (women + men)
