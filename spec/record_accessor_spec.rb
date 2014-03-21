@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'record_accessor'
+require 'rack/test'
 
 describe RecordAccessor::API do
   include Rack::Test::Methods
