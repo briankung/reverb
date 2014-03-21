@@ -80,13 +80,5 @@ describe RecordSet do
       expect(updated_records.save!).to be_true
       expect(RecordSet.new(path)).to include(bobby)
     end
-
-    it 'nurrrr' do
-      expect(record_set.length).to be 0
-      record_set << 1
-      expect(record_set.length).to be 1
-      record_set = RecordSet.new(path)
-      expect(record_set.length).to be 0
-    end
   end
 end
