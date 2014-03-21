@@ -19,7 +19,7 @@ module RecordAccessor
         records
       end
 
-      desc 'Returns records order of retrieval from file'
+      desc 'Returns records in order of retrieval from file'
       get do
         records.list(order: nil)
       end
